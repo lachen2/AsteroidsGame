@@ -4,48 +4,46 @@ Star[] soleli = new Star[175];
 public void setup() 
 {
   size(400, 400);
-  background(0);
   mimi = new Spaceship();
   for (int i = 0; i < soleli.length; i ++) {
     soleli[i] = new Star();
-    soleli[i].show();
   }
 }
 public void draw() 
 {
+  background(0);
+  for (int i = 0; i < soleli.length; i ++) 
+    soleli[i].show();
   mimi.show();
   mimi.move();
 }
-public void keypressed() {
+public void keyPressed() {
+  System.out.println("hello");
   if (key == 'z') {
     mimi.setXspeed(0);
     mimi.setYspeed(0);
-    mimi.setCenterX(50);
-    mimi.setCenterY(50);//(int)(Math.random() * 400));
-    System.out.println('h');
+    mimi.setCenterX((int)(Math.random() * 400));
+    mimi.setCenterY((int)(Math.random() * 400));
     mimi.show();
   }
-    if (keyCode == UP) {
-      mimi.setYspeed(-5);
-      mimi.show();
-      mimi.move();
+   if (keyCode == UP) {
+      mimi.setYspeed(-1.2);
     }
     if (keyCode == DOWN) {
-      mimi.setYspeed(5);
-      mimi.accelerate(5);
-     //mimi.move();
+      mimi.setYspeed(1.2);
     }
     if (keyCode == RIGHT) {
-      mimi.setXspeed(5);
-      mimi.accelerate(5);
+      mimi.setXspeed(1.2);
     }
     if (keyCode == LEFT) {
-      mimi.setXspeed(-5);
-      mimi.getXspeed();
-      mimi.accelerate(5);
+      mimi.setXspeed(-1.2);
     }
-    if (keyCode == 'a') {
-      mimi.turn(180);
-      mimi.setPointDirection(20);
+    if (keyCode == '1') {
+    if (mimi.getXspeed() < 6 && mimi.getXspeed() > -6 && mimi.getYspeed() < 6 && mimi.getYspeed() > -6) 
+        mimi.accelerate(0.3);
     }
-}     
+    if (keyCode == '2') {
+      mimi.turn(5);
+  //    mimi.setPointDirection(5);
+    }
+}    

@@ -20,14 +20,20 @@ class Spaceship extends Floater
     public void setYspeed(double y) {
       myYspeed = y;
     }
+    public double getYspeed() {
+      return myYspeed;
+    }
     public void setCenterX(double x) {
       myCenterX = x;
     }
     public void setCenterY(double y) {
       myCenterY = y;
     }
-    public void setPointDirection(double degrees) {
-      myPointDirection = degrees;
+    public void setPointDirection(double dir) {
+      if (myPointDirection > 360)
+        myPointDirection = 0;
+      else
+        myPointDirection += dir;
     }
     public void move() {
       super.move();

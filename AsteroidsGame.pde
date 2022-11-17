@@ -13,18 +13,20 @@ public void draw()
 {
   background(0);
   for (int i = 0; i < soleli.length; i ++) 
+    //create star background
     soleli[i].show();
+ //create spaceship
   mimi.show();
   mimi.move();
 }
 public void keyPressed() {
-  System.out.println("hello");
+  //based on what key is pressed, perform an action
   if (key == 'z') {
     mimi.setXspeed(0);
     mimi.setYspeed(0);
     mimi.setCenterX((int)(Math.random() * 400));
     mimi.setCenterY((int)(Math.random() * 400));
-    mimi.show();
+    mimi.turn((Math.random() * 360));
   }
    if (keyCode == UP) {
       mimi.setYspeed(-1.2);
@@ -44,6 +46,5 @@ public void keyPressed() {
     }
     if (keyCode == '2') {
       mimi.turn(5);
-  //    mimi.setPointDirection(5);
     }
 }    

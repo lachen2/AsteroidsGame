@@ -1,10 +1,12 @@
 class Spaceship extends Floater  
 {   
     public Spaceship() {
-      corners = 4;
-      xCorners = new int[] {16, -8, -1, -8 };
-      yCorners = new int[] {0, 8, 0, -8};
-      myColor = 255;
+      corners = 13;
+      xCorners = new int[] {14, 2, -1, -6, -2, -6, -12, -12, -6, -2, -6, -1, 2};
+      yCorners = new int[] {0, -6, -12, -14, -6, -6, -10, 10, 6, 6, 14, 12, 6};
+    //  xCorners = new int[] {-6, -8, -1, -8 };
+    //  yCorners = new int[] {0, 8, 0, -8};
+      myColor = color(205, 240, 230);
       myCenterX = 200;
       myCenterY = 200;
       myXspeed = 0;
@@ -35,7 +37,5 @@ class Spaceship extends Floater
       else
         myPointDirection += dir;
     }
-    public void move() {
-      super.move();
-    }
+
 }

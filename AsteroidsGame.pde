@@ -38,9 +38,10 @@ public void draw()
      float dis = dist((float)loid.get(i).getCenterX(), (float)loid.get(i).getCenterY(), (float)mimi.getCenterX(), (float)mimi.getCenterY());
      //distance between asteroid and spaceship
      
-     if (dis < 15) {
+     if (dis < 18) {
        //if spaceship collides with asteroid, asteroid is gone
        loid.remove(i);
+       i --;
     }
   } 
 }
@@ -84,4 +85,4 @@ public void keyPressed() {
       //rotate
       mimi.turn(6);
     }
-}     
+}      

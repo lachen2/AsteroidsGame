@@ -2,6 +2,7 @@
 Spaceship mimi;
 Star[] soleli = new Star[200];
 ArrayList <Asteroid> loid = new ArrayList <Asteroid>();
+ArrayList <Bullet> zuha = new ArrayList <Bullet>();
 
 public void setup() 
 {
@@ -37,13 +38,24 @@ public void draw()
     } 
      float dis = dist((float)loid.get(i).getCenterX(), (float)loid.get(i).getCenterY(), (float)mimi.getCenterX(), (float)mimi.getCenterY());
      //distance between asteroid and spaceship
-     
+
      if (dis < 18) {
        //if spaceship collides with asteroid, asteroid is gone
        loid.remove(i);
        i --;
+     }
+  }
+    for (int b = 0; b < loid.size(); b ++) {
+    for (int a = zuha.size() - 1; a > - 1; a --) {
+      zuha.get(a).show();
+      zuha.get(a).move();
+      float asteBullet = dist((float)loid.get(b).getCenterX(), (float)loid.get(b).getCenterY(),(float)zuha.get(a).getCenterX(), (float)zuha.get(a).getCenterY()); 
+      if (asteBullet < 10) {
+        loid.remove(b);
+        b--;
+      }
     }
-  } 
+  }
 }
 
 public void keyPressed() {
@@ -76,13 +88,18 @@ public void keyPressed() {
     }
     
     if (keyCode == '1') {
-      //accelerate in the direction it is pointing
+      //accelerate spaceship in the direction it is pointing
       if (mimi.getXspeed() < 6 && mimi.getXspeed() > -6 && mimi.getYspeed() < 6 && mimi.getYspeed() > -6) 
         mimi.accelerate(0.3);
     }
     
     if (keyCode == '2') {
-      //rotate
+      //rotate spaceship
       mimi.turn(6);
     }
-}      
+    
+    if (key == ' ') {
+      //create bullets
+      zuha.add(new Bullet(mimi));
+    }
+}     

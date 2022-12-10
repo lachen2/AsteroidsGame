@@ -9,7 +9,8 @@ class Bullet extends Spaceship
     accelerate(.6);
   }
  public void show() {
-   fill(150);
+   fill(150, 50, 60);
+   noStroke();
    ellipse((float)myCenterX, (float)myCenterY, 5, 5);
  }
 }

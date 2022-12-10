@@ -1,9 +1,9 @@
-//your variable declarations here
 Spaceship mimi;
 Star[] soleli = new Star[200];
 ArrayList <Asteroid> loid = new ArrayList <Asteroid>();
-ArrayList <Bullet> zuha = new ArrayList <Bullet>();
-
+ArrayList <Bullet> shot = new ArrayList <Bullet>();
+int energyLevel = 0;
+int accelerationLimit = 4;
 public void setup() 
 {
   size(400, 400);
@@ -23,6 +23,25 @@ public void draw()
     //create star background
     soleli[i].show();
     
+  if (energyLevel > 20) {
+    //increase acceleration limit and change energy bar to green
+    fill(30, 180, 30);
+    accelerationLimit = 12;
+  }
+  else if (energyLevel > 10) {
+    //increase acceleration limit and change energy bar to yellow
+    fill(234, 237, 60);
+    accelerationLimit = 8;
+  }
+  else {
+    fill(255);
+    accelerationLimit = 4;
+  }
+  rect(10, 5, 30, 10);
+  fill(0, 0, 0);
+  textSize(9);
+  text("Energy", 12, 14);
+  
  //create spaceship
   mimi.show();
   mimi.move();
@@ -39,24 +58,40 @@ public void draw()
      float dis = dist((float)loid.get(i).getCenterX(), (float)loid.get(i).getCenterY(), (float)mimi.getCenterX(), (float)mimi.getCenterY());
      //distance between asteroid and spaceship
 
-     if (dis < 18) {
-       //if spaceship collides with asteroid, asteroid is gone
-       loid.remove(i);
-       i --;
+       if (dis < 18) {
+         //if spaceship collides with asteroid, asteroid is gone
+         loid.remove(i);
+         i --;
+         energyLevel --;
+       }
+  }
+     for (int num = 0; num < shot.size(); num ++) {
+       shot.get(num).move();
+       shot.get(num).show();
      }
-  }
-    for (int b = 0; b < loid.size(); b ++) {
-    for (int a = zuha.size() - 1; a > - 1; a --) {
-      zuha.get(a).show();
-      zuha.get(a).move();
-      float asteBullet = dist((float)loid.get(b).getCenterX(), (float)loid.get(b).getCenterY(),(float)zuha.get(a).getCenterX(), (float)zuha.get(a).getCenterY()); 
-      if (asteBullet < 10) {
-        loid.remove(b);
-        b--;
-      }
-    }
-  }
+    for (int j = 0; j < loid.size(); j ++) {
+      for (int h = 0; h < shot.size() && shot.size() > 0; h ++) {
+      //remove asteroid if shot by bullet
+        if (10 > dist((float)loid.get(j).getCenterX(), (float)loid.get(j).getCenterY(),(float)shot.get(h) .getCenterX(), (float)shot.get(h).getCenterY())) {
+          loid.remove(j);
+          shot.remove(h);
+          energyLevel ++;
+          if (j > 0)
+            j --;
+          if (h > 0)
+            h --; 
+        }
+        if (shot.size() > 0 && (shot.get(h).getCenterX() > 390 || shot.get(h).getCenterX() < 10 || shot.get(h).getCenterY() > 390 || shot.get(h).getCenterY() < 10)) {
+          //remove bullet if at the sides of the page
+          shot.remove(h);
+          if (h > 0)
+            h --;  
+        }
+        }
+   }
 }
+ //  System.out.println(energyLevel);
+
 
 public void keyPressed() {
   //based on what key is pressed, perform an action for spaceship
@@ -89,7 +124,7 @@ public void keyPressed() {
     
     if (keyCode == '1') {
       //accelerate spaceship in the direction it is pointing
-      if (mimi.getXspeed() < 6 && mimi.getXspeed() > -6 && mimi.getYspeed() < 6 && mimi.getYspeed() > -6) 
+      if (mimi.getXspeed() < accelerationLimit && mimi.getXspeed() > -accelerationLimit && mimi.getYspeed() < accelerationLimit && mimi.getYspeed() > -accelerationLimit) 
         mimi.accelerate(0.3);
     }
     
@@ -100,6 +135,6 @@ public void keyPressed() {
     
     if (key == ' ') {
       //create bullets
-      zuha.add(new Bullet(mimi));
+      shot.add(new Bullet(mimi));
     }
-}     
+}  
